@@ -1,7 +1,5 @@
 (ns aoc.day15
   (:gen-class))
-(require '[clojure.string :as str])
-(require '[clojure.set])
 
 ; lazy evaluation using iterate
 ; slower than anticipated
@@ -36,8 +34,15 @@
         (recur (inc n) (assoc! index last-spoken n) next))
       last-spoken)))
 
-(defn day15-recursive []
-  (day-15 [1 12 0 20 8 16] 30000000))
+(defn day15-recursive [n]
+  (day-15 [1 12 0 20 8 16] n))
+
+
+(defn run
+  []
+  (do (println "Day 15")
+      (println (str "Part 1:" (day15-recursive 2020)))
+      (println (str "Part 2:" (day15-recursive 30000000)))))
 
 (defn -main
   [& args]
