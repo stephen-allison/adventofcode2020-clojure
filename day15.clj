@@ -48,6 +48,5 @@
   [& args]
   (do
     (println "playing game")
-    (println (play-day15 [3 2 1] 2020)) ;expect 438
-    (println (play-day15 [1 12 0 20 8 16] 30000000))  ;expect 47205
+    (run)
 ))
