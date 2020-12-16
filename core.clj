@@ -7,9 +7,6 @@
 (require '[aoc.day15 :as day15])
 
 
-
-
-
 ; Joy Of Clojure p94 -- magic is just two bodies for different arities
 ; callers from outside call with 2 args and hit the arity-2 body
 ; this then calls into neighbours again, thsi time with 3 args and hits 

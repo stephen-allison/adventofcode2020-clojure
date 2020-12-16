@@ -28,7 +28,8 @@
 (defn three-sum-to-2 [nums target]
   (let [ns (set nums)
         comp #(- target %)]
-    (first (for [n ns :when (two-sum-to-2 nums (comp n))] (concat [n] (two-sum-to-2 nums (comp n)))))))
+    (first (for [n ns :when (two-sum-to-2 nums (comp n))] 
+             (concat [n] (two-sum-to-2 nums (comp n)))))))
 
 (defn run []
   (do
