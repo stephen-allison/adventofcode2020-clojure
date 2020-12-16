@@ -3,6 +3,8 @@
 
 ; lazy evaluation using iterate
 ; slower than anticipated
+; performance problem due to lazy sequences doing a lot of allocations
+; and placing more load on GC.
 
 (defn initial-index [input]
   (zipmap input (range 1 (count input))))
@@ -17,11 +19,11 @@
   [input]
   (iterate game-turn [(last input) (count input) (transient (initial-index input))]))
 
-(defn play-day15
+(defn day15-iterative
   [input turns]
   (first (first (drop (- turns (count input)) (game-turns input)))))
 
-; simpler but quicker recursive approach
+; simpler and quicker recursive approach
 
 (defn day-15
   [input turns]
@@ -48,5 +50,4 @@
   [& args]
   (do
     (println "playing game")
-    (run)
-))
+    (run)))
