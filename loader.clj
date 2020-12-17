@@ -1,5 +1,10 @@
 (ns aoc.loader
   (:gen-class))
+(require 'clojure.java.io)
 
-(defn load []
-  (println "loading, loading, loading"))
+(defn load [filename]
+  (let [path (.getPath (clojure.java.io/resource filename))]
+    (do
+      (println "loading " path)
+      (slurp path))))
+
