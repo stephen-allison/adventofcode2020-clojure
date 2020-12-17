@@ -35,21 +35,24 @@
 (defn all-neighbours [cells offsets]
   (apply concat (map #(neighbours %1 offsets) cells)))
 
-(defn inc-count [counts neighbour]
-  (assoc counts neighbour (inc (get counts neighbour 0))))
-
 (defn counter [coll]
-  (reduce inc-count {} coll))
+  (let [inc-count (fn [counts n] (assoc counts n (inc (get counts n 0))))]
+    (reduce inc-count {} coll)))
+
+(defn deactivate-cell [cell counts]
+  (not (contains? #{2 3} (get counts cell 0))))
+
+(defn activate-cell [cell counts active-cells]
+  (and (= 3 (get counts cell)) (not (contains? active-cells cell))))
 
 (defn run-turn [active offsets]
   (let [active-neighbours (all-neighbours active offsets)
-        counts (counter (all-neighbours active offsets))
-        deactivating (set (filter #(not (contains? #{2 3} (get counts %1 0))) active))
-        activating (set (filter #(and (= 3 (get counts %1)) (not (contains? active %1))) active-neighbours))]
+        counts (counter active-neighbours)
+        deactivating (set (filter deactivate-cell active))
+        activating (set (filter activate-cell active-neighbours))]
     (set/union (set/difference active deactivating) activating)
 ))
 
-    
 (defn run [dims turns]
   (let [offsets (offsets dims)
         initial-active (initial-active-cells dims)]
